@@ -16,12 +16,16 @@ import { PractitionerTableComponent } from './practitioner-table/practitioner-ta
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { PatientFormComponent } from './patient-form/patient-form.component';
+import { PatientTableComponent } from './patient-table/patient-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PractitionerFormComponent,
     PractitionerTableComponent,
+    PatientFormComponent,
+    PatientTableComponent,
   ],
   imports: [
     BrowserModule,

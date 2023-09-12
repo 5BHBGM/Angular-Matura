@@ -62,7 +62,7 @@ export class PractitionerFormComponent implements OnInit{
         ) {
           this.addNewPhoto();
         }
-        
+
         this.practitionerForm.controls.communication.clear();
         while (
           this.practitionerForm.controls.communication.length <
@@ -78,14 +78,14 @@ export class PractitionerFormComponent implements OnInit{
       })
     });
   }
-  
+
   ngOnInit(): void {
 
     this.route.params.subscribe(params =>{
       if(params["id"] != "new"){
         this.getPractitioner();
       }
-    })    
+    })
   }
 
   practitionerForm = this.fb.group({
@@ -261,7 +261,7 @@ export class PractitionerFormComponent implements OnInit{
   addNewPhoto(){
     this.practitionerForm.controls.photo.push(this.createPhotoFormGroup());
   }
-  
+
   addNewCommunication(){
     this.practitionerForm.controls.communication.push(this.createCommunicationFormGroup());
   }
@@ -291,22 +291,23 @@ export class PractitionerFormComponent implements OnInit{
   }
 
   savePractitioner() {
-    // update
     const merged = this.practitionerForm.value;
 
     const id = merged.id;
+    const withoutIds = omitDeep(merged, "id");
 
-    const withoutIds = omitDeep(merged,"id");
-    
-    // falls server streikt, kann es sein, dass sie die ids
-    // rauslöschen müssen - das geht zB so:
-    /* const id = merged.id;
-    const withoutIds = omitDeep(merged, 'id'); */
-    this.service.editPractitionerById({id, ... withoutIds}).subscribe(response => {
-      console.log('put', response);
-      this.router.navigate(['practitioner/', response.id])
-    });
-    
-    
+    if (this.router.url.includes('new')) {
+      // Create a new practitioner
+      this.service.postPractitioner(withoutIds).subscribe(response => {
+        console.log('post', response);
+        this.router.navigate(['practitioner/', response.id]);
+      });
+    } else {
+      // Update existing practitioner
+      this.service.editPractitionerById({id, ...withoutIds}).subscribe(response => {
+        console.log('put', response);
+        this.router.navigate(['practitioner/', response.id]);
+      });
+    }
   }
 }

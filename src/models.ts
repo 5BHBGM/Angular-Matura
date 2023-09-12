@@ -96,6 +96,14 @@ export interface Communication {
     text: string;
 }
 
+export interface Reference {
+  id: string;
+  reference: string;
+  type: string;
+  identifier: Identifier[];
+  display: string;
+}
+
 export interface Practitioner {
     id: string;
     text: Text;
@@ -109,5 +117,21 @@ export interface Practitioner {
     photo: Photo[];
     qualification: Qualification[];
     communication: Communication[];
+}
+
+export interface Patient {
+  id: string;
+  text: Text;
+  identifier: Identifier[];
+  active: boolean;
+  name: Name[];
+  telecom: Telecom[];
+  address: Address[];
+  gender: string;
+  birthdate: string;
+  photo: Photo[];
+  generalPractitioner: Reference[];
+  deceasedBoolean: boolean;
+  deceasedDateTime: Date;
 }
 

@@ -1,38 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Practitioner } from 'src/models';
+import { Patient } from 'src/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PractitionerService {
+export class PatientService {
 
-  static BASE_PRACTITIONER_URL:string = 'http://localhost:8080/api/practitioner/';
+  static BASE_Patient_URL:string = 'http://localhost:8080/api/patient/';
 
   constructor(private http: HttpClient) { }
 
-  // ALle Practitioner
-  public getAllPractitioners(){
-    return this.http.get<Practitioner[]>(PractitionerService.BASE_PRACTITIONER_URL);
+  // ALle Patient
+  public getAllPatients(){
+    return this.http.get<Patient[]>(PatientService.BASE_Patient_URL);
   }
 
-  // Ein Practitioner
-  public getPractitionerById(id:string){
-    return this.http.get<Practitioner>(PractitionerService.BASE_PRACTITIONER_URL + id)
+  // Ein Patient
+  public getPatientById(id:string){
+    return this.http.get<Patient>(PatientService.BASE_Patient_URL + id)
   }
 
-  // Einen Practitioner editieren
-  public editPractitionerById(practitioner:any){
-    return this.http.put<Practitioner>(PractitionerService.BASE_PRACTITIONER_URL + practitioner.id, practitioner)
+  // Einen Patient editieren
+  public editPatientById(patient:any){
+    return this.http.put<Patient>(PatientService.BASE_Patient_URL + patient.id, patient)
   }
 
-  //Einen Practitioner löschen
-  public deletePractitionerById(id:string){
-    return this.http.delete(PractitionerService.BASE_PRACTITIONER_URL + id)
+  //Einen Patient löschen
+  public deletePatientById(id:string){
+    return this.http.delete(PatientService.BASE_Patient_URL + id)
   }
 
-  //Einen Practitioner hinzufügen
-  public postPractitioner(practitioner:any){
-    return this.http.post<Practitioner>(PractitionerService.BASE_PRACTITIONER_URL, practitioner)
+  //Einen Patient hinzufügen
+  public postPatient(patient:any){
+    return this.http.post<Patient>(PatientService.BASE_Patient_URL, patient)
   }
 }

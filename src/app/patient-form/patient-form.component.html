@@ -1,1 +1,509 @@
-<p>patient-form works!</p>
+<form [formGroup]="patientForm">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Patient Information</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Active</mat-label>
+              <select matNativeControl formControlName="active">
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <select matNativeControl formControlName="gender">
+              <option value="male">male</option>
+              <option value="female">female</option>
+              <option value="other">other</option>
+              <option value="unknown">unknown</option>
+            </select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input type="datetime" matInput placeholder="Birthdate" formControlName="birthdate">
+          </mat-form-field>
+        </div>
+      </div>
+      <ng-container formGroupName="text">
+        <h3>Text</h3>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Status</mat-label>
+              <select matNativeControl formControlName="status">
+                <option value="generated">generated</option>
+                <option value="extentions">extentions</option>
+                <option value="additional">additional</option>
+                <option value="empty">empty</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input type="text" matInput placeholder="Div" formControlName="div">
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+  <div><p>If a Container is open it has to be filled out if not nothing can be saved</p></div>
+  <span *ngFor="let identifier of patientForm.controls.identifier.controls; let identifierIndex=index;" [formGroup]='identifier'>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Identifer Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Use</mat-label>
+              <select matNativeControl formControlName="use">
+                <option value="usual">Usual</option>
+                <option value="official">Official</option>
+                <option value="temp">Temp</option>
+                <option value="secondary">Secondary</option>
+                <option value="old">Old</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="System" formControlName="system">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Value" formControlName="value">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Assigner" formControlName="assigner">
+            </mat-form-field>
+          </div>
+        </div>
+        <ng-container formGroupName="period">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="start" formControlName="start">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="end" formControlName="end">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removeIdentifier(identifierIndex)">Delete Identifier</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewIdentifier()">Add Identifier</button></div>
+  <span *ngFor="let address of patientForm.controls.address.controls; let addressIndex=index;" [formGroup]='address'>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Address Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Text" formControlName="text">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Use</mat-label>
+              <select matNativeControl formControlName="use">
+                <option value="home">Home</option>
+                <option value="work">Work</option>
+                <option value="temp">Temp</option>
+                <option value="billing">Billing</option>
+                <option value="old">Old</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Type</mat-label>
+              <select matNativeControl formControlName="type">
+                <option value="postal">Postal</option>
+                <option value="physical">Physical</option>
+                <option value="both">Both</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="City" formControlName="city">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="District" formControlName="district">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="State" formControlName="state">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="PostalCode" formControlName="postalCode">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Country" formControlName="country">
+            </mat-form-field>
+          </div>
+        </div>
+        <ng-container formGroupName="period">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="start" formControlName="start">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="end" formControlName="end">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let line of getLines(address); let lineIndex=index" [formGroup]="line">
+          <h3>Addressline</h3>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Addressline" value="{{line.value}}">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removeAddress(addressIndex)">Delete Address</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewAddress()">Add Address</button></div>
+  <span *ngFor="let name of patientForm.controls.name.controls; let nameIndex=index;" [formGroup]='name'>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Name Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Text" formControlName="text">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Use</mat-label>
+              <select matNativeControl formControlName="use">
+                <option value="usual">Usual</option>
+                <option value="official">Official</option>
+                <option value="temp">Temp</option>
+                <option value="nickname">Nickname</option>
+                <option value="anonymous">Anonymous</option>
+                <option value="old">Old</option>
+                <option value="maiden">Maiden</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Family" formControlName="family">
+            </mat-form-field>
+          </div>
+        </div>
+        <ng-container formGroupName="period">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="start" formControlName="start">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="end" formControlName="end">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let given of getGiven(name); let givenIndex=index" [formGroup]="given">
+          <h3>Given Names</h3>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Given Name" value="{{given.value}}">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngFor="let prefix of getPrefix(name); let prefixIndex=index" [formGroup]="prefix">
+          <h3>Prefix</h3>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Prefix" value="{{prefix.value}}">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+      <ng-container *ngFor="let suffix of getSuffix(name); let suffixIndex=index" [formGroup]="suffix">
+        <h3>Suffix</h3>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Suffix" value="{{suffix.value}}">
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-container>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removeName(nameIndex)">Delete Name</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewName()">Add Name</button></div>
+  <span *ngFor="let telecom of patientForm.controls.telecom.controls; let telecomIndex=index;" [formGroup]='telecom'>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Telecom Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>System</mat-label>
+              <select matNativeControl formControlName="system">
+                <option value="phone">Phone</option>
+                <option value="fax">fax</option>
+                <option value="email">Email</option>
+                <option value="pager">Pager</option>
+                <option value="url">Old</option>
+                <option value="sms">SMS</option>
+                <option value="other">Other</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Use</mat-label>
+              <select matNativeControl formControlName="use">
+                <option value="home">Home</option>
+                <option value="work">Work</option>
+                <option value="temp">Temp</option>
+                <option value="mobile">Mobile</option>
+                <option value="old">Old</option>
+              </select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Value" formControlName="value">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Rank" formControlName="rank">
+            </mat-form-field>
+          </div>
+        </div>
+        <ng-container formGroupName="period">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="start" formControlName="start">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input type="datetime-local" matInput placeholder="end" formControlName="end">
+              </mat-form-field>
+            </div>
+          </div>
+        </ng-container>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removeTelecom(telecomIndex)">Delete Telecom</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewTelecom()">Add Telecom</button></div>
+  <span *ngFor="let photo of patientForm.controls.photo.controls; let photoIndex=index;" [formGroup]='photo'>
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Photo Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Contenttype" formControlName="contenttype">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Language" formControlName="language">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Data" formControlName="data">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Url" formControlName="url">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Size" formControlName="size">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Hash" formControlName="hash">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Title" formControlName="title">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Creation" formControlName="creation">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removePhoto(photoIndex)">Delete Photo</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewPhoto()">Add Photo</button></div>
+  <span *ngFor="let generalPractitioner of patientForm.controls.generalPractitioner.controls; let generalPractitionerIndex=index;" [formGroup]="generalPractitioner">
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>GeneralPractitioner Information</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+      <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Reference" formControlName="reference">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Type" formControlName="type">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Display" formControlName="display">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Text" formControlName="text">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="removeGeneralPractitioner(generalPractitionerIndex)">Delete GeneralPractitioner</button>
+      </mat-card-actions>
+    </mat-card>
+  </span>
+  <div><button mat-raised-button color="primary" (click)="addNewGeneralPractitioner()">Add GeneralPractitioner</button></div>
+  <div><button mat-raised-button color="primary" (click)="savePatient()">Save Patient</button></div>
+</form>
+<pre>{{patientForm.value|json}}</pre>
+

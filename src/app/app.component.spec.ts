@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'MaturaVorbereitung'`, () => {
+  it(`should have as title 'Matura-Unterlage-Practitioner'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MaturaVorbereitung');
+    expect(app.title).toEqual('Matura-Unterlage-Practitioner');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('MaturaVorbereitung app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('Matura-Unterlage-Practitioner app is running!');
   });
 });
